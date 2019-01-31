@@ -372,7 +372,7 @@ class DataProcessing(object):
 
             wrapper_fn = linear_wrapper
 
-        files = cls._get_files(data_dir, ImgExt)
+        files = cls._get_files(data_dir, IMG_EXTENSIONS_2D)
         if n_jobs == 1:
             samples = []
             for file in wrapper_fn(files):
