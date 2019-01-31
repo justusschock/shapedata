@@ -12,7 +12,7 @@ import SimpleITK as sitk
 from delira.utils.imageops import sitk_resample_to_spacing
 
 from ..utils import is_landmark_file, is_image_file, LMK_EXTENSIONS, \
-    IMG_EXTENSIONS_2D, IMG_EXTENSIONS_3D
+    IMG_EXTENSIONS_2D
 from tqdm import tqdm
 from ..io import ljson_importer, ljson_exporter, pts_importer, pts_exporter
 from ..base_data_processing import BaseSingleImage, AbstractSingleImage
