@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 curr_version = '0.1.0'
 
 setup(
-    name='shapenet_data',
+    name='shapedata',
     version=curr_version,
     packages=find_packages(),
     url='https://github.com/justussschock/shapedata',
