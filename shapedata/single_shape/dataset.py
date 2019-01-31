@@ -172,20 +172,20 @@ class ShapeDataset(AbstractDataset):
         self.data = data
 
     def __getitem__(self, index):
-        try:
-            if self.rotate:
-                rot_angle = random.randint(-self.rotate, self.rotate)
-            else:
-                rot_angle = None
-            # _img, _label = default_loader(self.img_files[index], self.img_size)
-            _img, _label = default_loader(self.data[index], self.img_size,
-                                          self.crop, self.extension, rot_angle,
-                                          self.cached,
-                                          self.random_offset,
-                                          self.random_scale,
-                                          self.point_indices)
+        
+        if self.rotate:
+            rot_angle = random.randint(-self.rotate, self.rotate)
+        else:
+            rot_angle = None
+        # _img, _label = default_loader(self.img_files[index], self.img_size)
+        _img, _label = default_loader(self.data[index], self.img_size,
+                                      self.crop, self.extension, rot_angle,
+                                      self.cached,
+                                      self.random_offset,
+                                      self.random_scale,
+                                      self.point_indices)
 
-            return {"data": _img, "label": _label}
+        return {"data": _img, "label": _label}
 
     def __len__(self):
         return len(self.data)
