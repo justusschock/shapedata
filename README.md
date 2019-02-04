@@ -1,4 +1,4 @@
-# ShapeNet-Data
+# ShapeData
 
 [![Build Status](https://travis-ci.com/justusschock/shapedata.svg?token=GsT2RFaJJMxpqLAN3xuh&branch=master)](https://travis-ci.com/justusschock/shapedata) [![codecov](https://codecov.io/gh/justusschock/shapedata/branch/master/graph/badge.svg?token=PeQndVRdEQ)](https://codecov.io/gh/justusschock/shapedata) ![LICENSE](https://img.shields.io/github/license/justusschock/delira.svg)
 
