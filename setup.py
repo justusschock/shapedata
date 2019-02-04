@@ -35,7 +35,7 @@ requirements = resolve_requirements(os.path.join(os.path.dirname(__file__),
 
 readme = read_file(os.path.join(os.path.dirname(__file__), "README.md"))
 license = read_file(os.path.join(os.path.dirname(__file__), "LICENSE"))
-shapedata_version = find_version(os.path.join(os.path.dirname(__file__), "delira",
+shapedata_version = find_version(os.path.join(os.path.dirname(__file__), "shapedata",
                                            "__init__.py"))
 
 setup(
@@ -43,7 +43,6 @@ setup(
     version=shapedata_version,
     packages=find_packages(),
     url='https://github.com/justussschock/shapedata',
-    license='MIT',
     author='Justus Schock',
     author_email='justus.schock@rwth-aachen.de',
     description='',
