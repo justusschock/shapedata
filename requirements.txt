@@ -1,1 +1,1 @@
-delira[torch]
+delira
