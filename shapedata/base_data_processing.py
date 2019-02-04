@@ -4,8 +4,6 @@ import os
 import numpy as np
 from abc import abstractmethod
 from copy import deepcopy
-import torch
-from torch.nn import functional as F
 
 from skimage.color import rgb2gray
 from skimage.transform import AffineTransform, warp
