@@ -20,23 +20,36 @@ def default_loader(data: str, img_size: tuple, crop=None, extension=None,
 
     Parameters
     ----------
-    data: image file to load
-    img_size: tuple
+    data : str or :class:`SingleImage2D`
+        image file to load
+    img_size : tuple
         image size for resizing
-    crop: None or float
+    crop : None or float
         if None: nor cropping will be applied
         if float: specifies boundary proportion for cropping
-    extension: string or None:
+    extension : str or None:
         specifiying the extension
-    rotate: int or None
+    rotate : int or None
         specifies to image rotation (in degrees)
-    cached: bool
+    cached : bool
         whether or not the data is already cached
+    random_offset : bool or float
+        if bool: must be False -> No Random Shift is applied
+        if float: specifies the maximal number of pixels to shift
+    random_scale : bool or float
+        if bool: must be False -> No random scaling is applied
+        if float: specifies the maximum amount of scaling
+    point_indices : None or Iterable
+        if None: All landmarks are returned
+        if Iterable: only landmarks corresponding to indices are returned
 
     Returns
     -------
-    np.ndarray: image
-    np.ndarray: landmarks
+    np.ndarray
+        image
+    np.ndarray
+        landmarks
+
     """
     if not cached:
         _data = SingleImage.from_files(data, extension=extension)
@@ -48,6 +61,40 @@ def default_loader(data: str, img_size: tuple, crop=None, extension=None,
 
 def preprocessing(img: SingleImage, img_size: tuple, crop=None, rotate=None,
                   random_offset=False, random_scale=False, point_indices=None):
+    """
+    Helper Function to preprocess a single sample
+
+    Parameters
+    ----------
+    img ::class:`SingleImage2D`
+        image file to preprocess
+    img_size : tuple
+        image size for resizing
+    crop : None or float
+        if None: nor cropping will be applied
+        if float: specifies boundary proportion for cropping
+    extension : str or None:
+        specifiying the extension
+    rotate : int or None
+        specifies to image rotation (in degrees)
+    random_offset : bool or float
+        if bool: must be False -> No Random Shift is applied
+        if float: specifies the maximal number of pixels to shift
+    random_scale : bool or float
+        if bool: must be False -> No random scaling is applied
+        if float: specifies the maximum amount of scaling
+    point_indices : None or Iterable
+        if None: All landmarks are returned
+        if Iterable: only landmarks corresponding to indices are returned
+
+    Returns
+    -------
+    np.ndarray
+        image
+    np.ndarray
+        landmarks
+        
+    """
     _data = img
     if crop is not None or rotate or random_scale or random_offset:
         if crop is None:
@@ -125,19 +172,29 @@ class ShapeDataset(AbstractDataset):
 
         Parameters
         ----------
-        data_path: string
+        data_path : str
             path to shapedata directory
-        img_size: tuple
+        img_size : tuple
             image size
-        crop: float or None
+        crop : float or None
             if None: nor cropping will be applied
             if float: specifies boundary proportion for cropping
-        extension: string or None
+        extension : str or None
             specifies the landmark extension
-        rotate: int or None
+        rotate : int or None
             specifies to image rotation (in degrees)
-        cached: bool
+        cached : bool
             whether or not the data is already cached
+        random_offset : bool or float
+            if bool: must be False -> No Random Shift is applied
+            if float: specifies the maximal number of pixels to shift
+        random_scale : bool or float
+            if bool: must be False -> No random scaling is applied
+            if float: specifies the maximum amount of scaling
+        point_indices : None or Iterable
+            if None: All landmarks are returned
+            if Iterable: only landmarks corresponding to indices are returned
+
         """
 
         super().__init__(data_path, default_loader, IMG_EXTENSIONS_2D,
@@ -172,6 +229,22 @@ class ShapeDataset(AbstractDataset):
         self.data = data
 
     def __getitem__(self, index):
+        """
+        Returns a dict containing a single sample
+        
+        Parameters
+        ----------
+        index : int
+            index specifying the sample to return
+        
+        Returns
+        -------
+        dict
+            dictionary containing the image under the key 'data' and the 
+            landmarks under the key 'label'
+            
+        """
+
         
         if self.rotate:
             rot_angle = random.randint(-self.rotate, self.rotate)

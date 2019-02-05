@@ -52,20 +52,23 @@ _ljson_parser_for_version = {
 
 
 def ljson_importer(filepath):
-    r"""
+    """
     Importer for the Menpo JSON format. This is an n-dimensional
     landmark type for both images and meshes that encodes semantic labels in
     the format.
     Landmark set label: JSON
     Landmark labels: decided by file
+
     Parameters
     ----------
-    filepath : `Path`
+    filepath : str
         Absolute filepath of the file.
 
     Returns
     -------
-    np.ndarray: loaded landmarks
+    np.ndarray
+        loaded landmarks
+    
     """
     with open(str(filepath), 'r') as f:
         # lms_dict is now a dict rep of the JSON
@@ -80,7 +83,7 @@ def ljson_importer(filepath):
 
 
 def pts_importer(filepath, image_origin=True, z=False, **kwargs):
-    r"""
+    """
     Importer for the PTS file format. Assumes version 1 of the format.
     Implementations of this class should override the :meth:`_build_points`
     which determines the ordering of axes. For example, for images, the
@@ -94,19 +97,22 @@ def pts_importer(filepath, image_origin=True, z=False, **kwargs):
     If you want to use PTS landmarks that are 0-based, you will have to
     manually add one back on to landmarks post importing.
     Landmark set label: PTS
+
     Parameters
     ----------
-    filepath : `Path`
+    filepath : str
         Absolute filepath of the file.
     image_origin : `bool`, optional
         If ``True``, assume that the landmarks exist within an image and thus
         the origin is the image origin.
-    \**kwargs : `dict`, optional
+    **kwargs : `dict`, optional
         Any other keyword arguments.
+
     Returns
     -------
-    landmarks : `dict` {`str`: :map:`PointCloud`}
-        Dictionary mapping landmark groups to menpo shapes
+    np.ndarray
+        imported points
+
     """
     with open(filepath, 'r') as f:
         lines = [l.strip() for l in f.readlines()]
@@ -160,18 +166,19 @@ def pts_importer(filepath, image_origin=True, z=False, **kwargs):
 
 
 def ljson_exporter(lmk_points, filepath, **kwargs):
-    r"""
+    """
     Given a file handle to write in to (which should act like a Python `file`
     object), write out the landmark data. No value is returned.
     Writes out the LJSON format which is a verbose format that closely
     resembles the labelled point graph format. It describes semantic
     labels and connectivity between labels. The first axis of the format
     represents the image y-axis and is consistent with ordering within Menpo.
+
     Parameters
     ----------
     lmk_points : np.ndarray
         The shape to write out.
-    filepath: string
+    filepath : str
         The file to write in to
     """
 
@@ -194,7 +201,7 @@ def ljson_exporter(lmk_points, filepath, **kwargs):
 
 
 def pts_exporter(pts, file_handle, **kwargs):
-    r"""
+    """
     Given a file handle to write in to (which should act like a Python `file`
     object), write out the landmark data. No value is returned.
     Writes out the PTS format which is a very simple format that does not
@@ -203,12 +210,14 @@ def pts_exporter(pts, file_handle, **kwargs):
     first coordinate (which is the second axis within Menpo).
     Note that the PTS file format is only powerful enough to represent a
     basic pointcloud. Any further specialization is lost.
+
     Parameters
     ----------
-    pointcloud : :map:`PointCloud` or subclass
-        The pointcloud to write out.
+    pts : np.ndarray
+        points to save
     file_handle : `file`-like object
         The file to write in to
+        
     """
     # Swap the x and y axis and add 1 to undo our processing
     # We are assuming (as on import) that the landmark file was created using

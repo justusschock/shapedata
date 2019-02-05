@@ -22,6 +22,7 @@ from copy import deepcopy
 class SingleImage2D(BaseSingleImage):
     """
     Holds Single Image
+
     """
 
     def __init__(self, img, lmk=None, **kwargs):
@@ -29,12 +30,13 @@ class SingleImage2D(BaseSingleImage):
 
         Parameters
         ----------
-        img: np.ndarray
+        img : np.ndarray
             actual image pixels
-        lmk: np.ndarray
+        lmk : np.ndarray
             landmarks
-        kwargs:
+        kwargs :
             additional kwargs like file paths
+
         """
         super().__init__(img)
 
@@ -49,14 +51,16 @@ class SingleImage2D(BaseSingleImage):
         Create class from image file
         Parameters
         ----------
-        file: string
+        file : str
             path to image file
-        kwargs:
+        **kwargs :
             additional keyword arguments
 
         Returns
         -------
-        class instance
+        :class:`SingleImage2D`
+            class instance 
+
         """
 
         img, lmk = None, None
@@ -82,17 +86,20 @@ class SingleImage2D(BaseSingleImage):
     @classmethod
     def from_ljson_files(cls, img_file, **kwargs):
         """
-        Creates class from menpo Image
+        Creates class from menpo pts landmarks and image
+
         Parameters
         ----------
-        img_file: string
+        img_file : str
             image file to load
-        kwargs:
+        **kwargs :
             additional keyword arguments
 
         Returns
         -------
-        class instance
+        :class:`SingleImage2D`
+            class instance
+
         """
         sitk_image = sitk.ReadImage(img_file)
         if kwargs.get("resample_spacing", False):
@@ -111,17 +118,20 @@ class SingleImage2D(BaseSingleImage):
     @classmethod
     def from_pts_files(cls, img_file, **kwargs):
         """
-        Creates class from menpo Image
+        Creates class from menpo ljson landmarks and image
+
         Parameters
         ----------
-        img_file: string
+        img_file : str
             image file to load
-        kwargs:
+        **kwargs :
             additional keyword arguments
 
         Returns
         -------
-        class instance
+        :class:`SingleImage2D`
+            class instance
+
         """
         sitk_image = sitk.ReadImage(img_file)
         if kwargs.get("resample_spacing", False):
@@ -142,15 +152,17 @@ class SingleImage2D(BaseSingleImage):
 
         Parameters
         ----------
-        filepath: string
+        filepath : str
             path to file the landmarks should be saved to
-        lmk_type: string
+        lmk_type : str
             specifies the type of landmark file
-        kwargs
+        **kwargs
             additional keyword arguments passed to save function
 
-        Returns
-        -------
+        Raises
+        ------
+        ValueError
+            no valid landmarktype is given
 
         """
         if lmk_type.lower() == 'ljson':
@@ -180,12 +192,14 @@ class SingleImage2D(BaseSingleImage):
 
         Parameters
         ----------
-        transformation: AffineTransform
+        transformation : :class:`AffineTransform`
             transformation to apply
 
         Returns
         -------
-        BaseSingleImage, Image with Transformed Landmarks
+        :class:`BaseSingleImage`
+            Image with Transformed Landmarks
+
         """
         if self.lmk is not None:
             # flip coords for transformation and flip back afterwards
@@ -200,7 +214,9 @@ class SingleImage2D(BaseSingleImage):
 
         Returns
         -------
-        SingleImage: Image with Landmarks in Homogeneous Coordinates
+        :class:`SingleImage2D`
+            Image with Landmarks in Homogeneous Coordinates
+
         """
         if self.is_cartesian:
             self.lmk = np.hstack([self.lmk, np.ones((self.lmk.shape[0], 1))])
@@ -214,7 +230,9 @@ class SingleImage2D(BaseSingleImage):
 
         Returns
         -------
-        SingleImage: Image with Landmarks in cartesian Coordinates
+        class:`SingleImage2D`
+            Image with Landmarks in cartesian Coordinates
+
         """
         if self.is_homogeneous:
             self.lmk = self.lmk[:, :-1] / self.lmk[:, -1].reshape(
@@ -225,12 +243,19 @@ class SingleImage2D(BaseSingleImage):
     def normalize_rotation(self, index_left, index_right, **kwargs):
         """
         normalizes rotation based on two keypoints
-        kwargs:
-            additional keyword arguments (passed to skimage.transform.warp)
+
+        index_left : int
+            landmark-index of the left point
+        index_right : int
+            landmark-index of the right point
+        **kwargs:
+            additional keyword arguments (passed to :meth:`warp`)
 
         Returns
         -------
-        SingleImage: normalized image
+        :class:`SingleImage2D`
+            normalized image
+
         """
         return self._normalize_rotation(self.lmk, index_left, index_right,
                                         **kwargs)
@@ -241,14 +266,16 @@ class SingleImage2D(BaseSingleImage):
 
         Parameters
         ----------
-        view_landmarks: bool
+        view_landmarks : bool
             whether or not to show the landmarks
-        kwargs:
+        **kwargs :
             additional keyword arguments (are passed to imshow)
 
         Returns
         -------
-        plt.Figure figure with plot
+        :class:`Figure`
+            figure with plot
+
         """
         if create_fig:
             fig = plt.figure()
@@ -271,18 +298,20 @@ class SingleImage2D(BaseSingleImage):
 
         Parameters
         ----------
-        min_y: int
+        min_y : int
             minimum y value
-        min_x: int
+        min_x : int
             minimum x value
-        max_y: int
+        max_y : int
             maximum y value
-        max_x: int
+        max_x : int
             maximum x value
 
         Returns
         -------
-        SingleImage: cropped image
+        :class:`SingleImage2D`
+            cropped image
+
         """
         self.img = self.img[int(min_y): int(max_y), int(min_x): int(max_x)]
 
@@ -298,14 +327,16 @@ class SingleImage2D(BaseSingleImage):
 
         Parameters
         ----------
-        proportion: float
+        proportion : float
             Cropping Proportion
-        kwargs:
+        **kwargs :
             additional keyword arguments (ignored here)
 
         Returns
         -------
-        SingleImage: Cropped Image
+        :class:`SingleImage2D`
+            Cropped Image
+
         """
         min_y, min_x, max_y, max_x = self.get_landmark_bounds(self.lmk)
 
@@ -326,6 +357,11 @@ class SingleImage2D(BaseSingleImage):
 class DataProcessing(object):
     """
     Process multiple SingleImages
+
+    See Also
+    --------
+    :class:`SingleImage2D`
+
     """
 
     def __init__(self, samples, dim=2, **kwargs):
@@ -339,6 +375,7 @@ class DataProcessing(object):
             number of image dimensions
         **kwargs :
             additional keyword arguments
+
         """
         super().__init__()
         self.samples = samples
@@ -353,14 +390,21 @@ class DataProcessing(object):
 
         Parameters
         ----------
-        data_dir: string
+        data_dir : str
             directory where shapedata is stored
-        verbose: bool
+        verbose : bool
             whether or not to print current progress
+        n_jobs : int
+            number of jobs for loading data (default: None -> all available 
+            CPUs are used)
+        n_dim : int
+            Integer indicating the dimensionality of the image (default: 2)
 
         Returns
         -------
-        class instance
+        :class:`DataProcessing`
+            class instance
+
         """
 
         if verbose:
@@ -391,7 +435,9 @@ class DataProcessing(object):
 
         Returns
         -------
-        list: landmarks
+        list
+            landmarks
+
         """
         return [tmp.lmk for tmp in self.samples]
 
@@ -402,7 +448,9 @@ class DataProcessing(object):
 
         Returns
         -------
-        list: pixels
+        list
+            pixels
+
         """
         return [tmp.img for tmp in self.samples]
 
@@ -412,8 +460,9 @@ class DataProcessing(object):
 
         Parameters
         ----------
-        img_size: tuple
+        img_size : tuple
             new image size
+
         """
         for idx, sample in enumerate(self.samples):
             self.samples[idx] = sample.resize(img_size)
@@ -425,14 +474,16 @@ class DataProcessing(object):
 
         Parameters
         ----------
-        directory: string
+        directory : str
             directory containing the files
-        extensions: list
+        extensions : list
             list of strings specifying valid extensions
 
         Returns
         -------
-        list: valid files
+        list
+            valid files
+
         """
 
         files = []
@@ -461,21 +512,23 @@ class DataProcessing(object):
 
         Parameters
         ----------
-        scale: bool
+        scale : bool
             whether or not to scale the principal components with the
             corresponding eigen value
-        center: bool
+        center : bool
             whether or not to substract mean before pca
-        pt_indices: int
+        pt_indices : int
             indices to include into PCA (if empty: include all points)
-        args: list
+        args : list
             additional positional arguments (passed to pca)
-        kwargs: dict
+        **kwargs :
             additional keyword arguments (passed to pca)
 
         Returns
         -------
-        np.array: eigen_shapes
+        np.array
+            eigen_shapes
+
         """
 
         landmarks = np.asarray(self.landmarks).copy()

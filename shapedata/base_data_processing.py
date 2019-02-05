@@ -13,6 +13,11 @@ from skimage.io import imsave
 
 
 class AbstractSingleImage(object):
+    """
+    Abstract Class to define a SingleImage-API
+    
+    """
+
     def __init__(self):
         self._img = None
         self._transformation_history = []
@@ -20,137 +25,604 @@ class AbstractSingleImage(object):
 
     @property
     def img(self):
+        """
+        Property to get the actual image pixels
+        
+        Returns
+        -------
+        np.array
+            image pixels
+
+        """
+
         return self._img
 
     @img.setter
     @abstractmethod
     def img(self, new_img):
+        """
+        Setter for the ``img`` property
+        
+        Parameters
+        ----------
+        new_img : np.array
+            the new image
+        
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+        
+        """
+
         raise NotImplementedError
 
     @abstractmethod
     def save(self, *args, **kwargs):
+        """
+        Abstract Function to save image and landmarks
+        
+        Parameters
+        ----------
+        *args :
+            positional arguments
+        **kwargs :
+            keyword arguments
+
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+        
+        """
+
         raise NotImplementedError
 
     @abstractmethod
     def save_image(self, *args, **kwargs):
+        """
+        Abstract Function to save image
+        
+        Parameters
+        ----------
+        *args :
+            positional arguments
+        **kwargs :
+            keyword arguments
+
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+        
+        """
         raise NotImplementedError
 
     @abstractmethod
     def save_landmarks(self, *args, **kwargs):
+        """
+        Abstract Function to save landmarks
+        
+        Parameters
+        ----------
+        *args :
+            positional arguments
+        **kwargs :
+            keyword arguments
+
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+        
+        """
         raise NotImplementedError
 
     @abstractmethod
     def _save_landmarks(self, *args, **kwargs):
+        """
+        Abstract internal Function to save landmarks
+        
+        Parameters
+        ----------
+        *args :
+            positional arguments
+        **kwargs :
+            keyword arguments
+
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+        
+        """
         raise NotImplementedError
 
     @property
     @abstractmethod
     def is_gray(self):
+        """
+        Property returning whether the image is a grayscale image
+        
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+        
+        """
+
         raise NotImplementedError
 
     @property
     @abstractmethod
     def is_homogeneous(self):
+        """
+        Property returning whether the landmarks are in homogeneous coordinates
+        
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+        
+        """
+
         raise NotImplementedError
 
     @is_homogeneous.setter
     @abstractmethod
     def is_homogeneous(self, new_state):
+        """
+        Setter to update whether the landmarks are in homogeneous coordinates
+
+        Parameters
+        ----------
+        new_state : bool
+            the new value
+        
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+        
+        """
+
         raise NotImplementedError
 
     @abstractmethod
     def apply_trafo(self, *args, **kwargs):
+        """
+        Applies a given transformation to image and landmarks
+
+        Parameters
+        ----------
+        *args :
+            positional arguments
+        **kwargs :
+            keyword arguments
+        
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+        
+        """
+
         raise NotImplementedError
 
     @abstractmethod
     def _transform_img(self, *args, **kwargs):
+        """
+        Applies a given transformation to image
+
+        Parameters
+        ----------
+        *args :
+            positional arguments
+        **kwargs :
+            keyword arguments
+        
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+        
+        """
         raise NotImplementedError
 
     @abstractmethod
     def _transform_lmk(self, *args, **kwargs):
+        """
+        Applies a given transformation to landmarks
+
+        Parameters
+        ----------
+        *args :
+            positional arguments
+        **kwargs :
+            keyword arguments
+        
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+        
+        """
         raise NotImplementedError
 
     @classmethod
     @abstractmethod
     def from_files(cls, *args, **kwargs):
+        """
+        Creates a class instance from files
+
+        Parameters
+        ----------
+        *args :
+            positional arguments
+        **kwargs :
+            keyword arguments
+        
+        Raises
+        ------
+        NotImplementedError
+        
+        """
+
         raise NotImplementedError
 
     @abstractmethod
     def transform(self, *args, **kwargs):
+        """
+        Applies a given transformation to image and landmarks
+
+        Parameters
+        ----------
+        *args :
+            positional arguments
+        **kwargs :
+            keyword arguments
+        
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+        
+        """
         raise NotImplementedError
 
     @abstractmethod
     def cartesian_coordinates(self):
+        """
+        Transforms the landmarks into cartesian coordinates
+        
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+        
+        """
         raise NotImplementedError
 
     @abstractmethod
     def homogeneous_coordinates(self):
+        """
+        Transforms the landmarks into homogeneous coordinates
+        
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+        
+        """
+
         raise NotImplementedError
 
     @abstractmethod
     def transform_about_centre(self, *args, **kwargs):
+        """
+        Applies a given transformation to image and landmarks at image center
+        (internally shifts image and landmarks center to origin, applies 
+        transformation and shifts back)
+
+        Parameters
+        ----------
+        *args :
+            positional arguments
+        **kwargs :
+            keyword arguments
+        
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+        
+        """
         raise NotImplementedError
 
     @abstractmethod
     def resize(self, *args, **kwargs):
+        """
+        Resizes image and landmarks
+
+        Parameters
+        ----------
+        *args :
+            positional arguments
+        **kwargs :
+            keyword arguments
+        
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+        
+        """
         raise NotImplementedError
 
     @abstractmethod
     def rescale(self, *args, **kwargs):
+        """
+        Rescales image and landmarks
+
+        Parameters
+        ----------
+        *args :
+            positional arguments
+        **kwargs :
+            keyword arguments
+        
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+        
+        """
         raise NotImplementedError
 
     @abstractmethod
     def rotate(self, *args, **kwargs):
+        """
+        Rotates image and landmarks
+
+        Parameters
+        ----------
+        *args :
+            positional arguments
+        **kwargs :
+            keyword arguments
+        
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+        
+        """
         raise NotImplementedError
 
     @abstractmethod
     def translate(self, *args, **kwargs):
+        """
+        Translates image and landmarks
+
+        Parameters
+        ----------
+        *args :
+            positional arguments
+        **kwargs :
+            keyword arguments
+        
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+        
+        """
         raise NotImplementedError
 
     @abstractmethod
     def view(self, *args, **kwargs):
+        """
+        Plots image and landmarks
+
+        Parameters
+        ----------
+        *args :
+            positional arguments
+        **kwargs :
+            keyword arguments
+        
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+        
+        """
         raise NotImplementedError
 
     @abstractmethod
     def normalize_rotation(self, *args, **kwargs):
+        """
+        Rotates image and landmarks in a way, that the vector between two given 
+        points is parallel to horizontal axis
+
+        Parameters
+        ----------
+        *args :
+            positional arguments
+        **kwargs :
+            keyword arguments
+        
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+        
+        """
         raise NotImplementedError
 
     @abstractmethod
     def _normalize_rotation(self, *args, **kwargs):
+        """
+        Internal implementation of 
+        :method:`AbstractSingleImage.normalize_rotation`
+
+        Parameters
+        ----------
+        *args :
+            positional arguments
+        **kwargs :
+            keyword arguments
+        
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+        
+        """
         raise NotImplementedError
 
     @abstractmethod
     def crop(self, *args, **kwargs):
+        """
+        Crops image and landmarks to given range
+        
+        Parameters
+        ----------
+        *args :
+            positional arguments
+        **kwargs :
+            keyword arguments
+        
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+        
+        """
+
         raise NotImplementedError
 
     @abstractmethod
     def _crop(self, *args, **kwargs):
+        """
+        Internal implementation of 
+        :method:`AbstractSingleImage.crop`
+
+        Parameters
+        ----------
+        *args :
+            positional arguments
+        **kwargs :
+            keyword arguments
+        
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+        
+        """
         raise NotImplementedError
 
     @abstractmethod
     def _crop_lmks(self, *args, **kwargs):
+        """
+        Crops the landmarks
+
+        Parameters
+        ----------
+        *args :
+            positional arguments
+        **kwargs :
+            keyword arguments
+        
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+        
+        """
         raise NotImplementedError
 
     @abstractmethod
     def crop_to_landmarks(self, *args, **kwargs):
+        """
+        Crops image and landmarks to bounding box specified by landmarks
+
+        Parameters
+        ----------
+        *args :
+            positional arguments
+        **kwargs :
+            keyword arguments
+        
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+        
+        """
         raise NotImplementedError
 
     @abstractmethod
     def _crop_to_landmarks(self, *args, **kwargs):
+        """
+        Internal implementation of 
+        :method:`AbstractSingleImage.crop_to_landmarks`
+
+        Parameters
+        ----------
+        *args :
+            positional arguments
+        **kwargs :
+            keyword arguments
+        
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+        
+        """
         raise NotImplementedError
 
     @abstractmethod
     def get_landmark_bounds(self, *args, **kwargs):
+        """
+        Calculates bounds of landmarks
+
+        Parameters
+        ----------
+        *args :
+            positional arguments
+        **kwargs :
+            keyword arguments
+        
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+        
+        """
         raise NotImplementedError
 
     @abstractmethod
     def to_grayscale(self):
+        """
+        Converts image to grayscale
+        
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+        
+        """
+
         raise NotImplementedError
 
 
 class BaseSingleImage(AbstractSingleImage):
     """
     Holds Single Image
+
     """
 
     def __init__(self, img: np.ndarray, *args, **kwargs):
@@ -182,18 +654,15 @@ class BaseSingleImage(AbstractSingleImage):
 
         Parameters
         ----------
-        directory: string
+        directory : str
             string containing the directory to save
-        filename: string
+        filename : str
             string containing the filename (without the extension)
-        lmk_type: string or None
+        lmk_type : str or None
             if None: no landmarks will be saved
-            if string: specifies type of landmark file
-        kwargs:
+            if str: specifies type of landmark file
+        **kwargs :
             additional keyword arguments passed to save function for landmarks
-
-        Returns
-        -------
 
         """
         self.save_image(os.path.join(directory, filename + ".png"))
@@ -208,11 +677,8 @@ class BaseSingleImage(AbstractSingleImage):
 
         Parameters
         ----------
-        filepath: string
+        filepath : str
             file to save the image to
-
-        Returns
-        -------
 
         """
         imsave(filepath, self.img.squeeze())
@@ -223,15 +689,12 @@ class BaseSingleImage(AbstractSingleImage):
 
         Parameters
         ----------
-        filepath: string
+        filepath : str
             path to file the landmarks should be saved to
-        lmk_type: string
+        lmk_type : str
             specifies the type of landmark file
-        kwargs
+        **kwargs :
             additional keyword arguments passed to save function
-
-        Returns
-        -------
 
         """
         self._save_landmarks(filepath, lmk_type, **kwargs)
@@ -243,15 +706,17 @@ class BaseSingleImage(AbstractSingleImage):
 
         Parameters
         ----------
-        filepath: string
+        filepath : str
             path to file the landmarks should be saved to
-        lmk_type: string
+        lmk_type : str
             specifies the type of landmark file
-        kwargs
+        **kwargs
             additional keyword arguments passed to save function
 
-        Returns
-        -------
+        Raises
+        ------
+        NotImplementedError
+            If not overwritten by subclass
 
         """
         raise NotImplementedError
@@ -274,14 +739,16 @@ class BaseSingleImage(AbstractSingleImage):
 
         Parameters
         ----------
-        transformation: AffineTransform
+        transformation : :class:`AffineTransform`
             transformation to apply
-        kwargs:
+        **kwargs :
             additional keyword arguments
 
         Returns
         -------
-        BaseSingleImage: Transformed Image and Landmarks
+        :class:`BaseSingleImage`
+            Transformed Image and Landmarks
+
         """
 
         # ensure transformation to be affine
@@ -297,16 +764,19 @@ class BaseSingleImage(AbstractSingleImage):
     def _transform_img(self, transformation: AffineTransform, **kwargs):
         """
         Apply transformation inplace to image
+
         Parameters
         ----------
-        transformation: AffineTransform
+        transformation : :class:`AffineTransform`
             transformation to apply
-        kwargs:
+        **kwargs :
             additional keyword arguments
 
         Returns
         -------
-        BaseSingleImage: Transformed Image with original Landmarks
+        :class:`BaseSingleImage`
+            Transformed Image with original Landmarks
+
         """
 
         self.img = warp(np.ascontiguousarray(self.img), transformation.inverse,
@@ -321,12 +791,14 @@ class BaseSingleImage(AbstractSingleImage):
 
         Parameters
         ----------
-        transformation: AffineTransform
+        transformation : :class:`AffineTransform`
             transformation to apply
 
         Returns
         -------
-        BaseSingleImage, Image with Transformed Landmarks
+        :class:`BaseSingleImage`
+            Image with Transformed Landmarks
+
         """
         raise NotImplementedError
 
@@ -365,14 +837,16 @@ class BaseSingleImage(AbstractSingleImage):
     def from_npy_files(cls, file, **kwargs):
         """
         Create class from image or landmark file
+
         Parameters
         ----------
-        file: string
+        file : str
             path to image or landmarkfile
 
         Returns
         -------
-        class instance
+        :class:`BaseSingleImage`
+
         """
         raise NotImplementedError
 
@@ -388,7 +862,8 @@ class BaseSingleImage(AbstractSingleImage):
 
         Returns
         -------
-        class instance
+        :class:`BaseSingleImage`
+
         """
         raise NotImplementedError
 
@@ -397,14 +872,16 @@ class BaseSingleImage(AbstractSingleImage):
     def from_ljson_files(cls, img_file, **kwargs):
         """
         Create class from image or landmark file
+
         Parameters
         ----------
-        file: string
+        file: str
             path to image or landmarkfile
 
         Returns
         -------
-        class instance
+        :class:`BaseSingleImage`
+
         """
         raise NotImplementedError
 
@@ -413,33 +890,36 @@ class BaseSingleImage(AbstractSingleImage):
                   return_matrix=False, **kwargs):
         """
         transform image and landmarks by parameters or transformation matrix
-        See skimage.transform.AffineTransform for a detailed parameter
+        See :class:`skimage.transform.AffineTransform` for a detailed parameter
         explanation
 
         Parameters
         ----------
-        transform: AffineTransform
+        transform : :class:`AffineTransform`
             if transform is specified it overwrites all other arguments
-        rotation:
+        rotation : float or None
             rotation angle in radiant
-        scale:
+        scale : float or None
             scale value
-        translation:
+        translation : 
             translation params
-        shear:
+        shear :
             shear params
-        trafo_matrix:
+        trafo_matrix :
             transformation matrix
-        return_matrix: bool
+        return_matrix : bool
             whether to return the transformation matrix along the transformed
             object
-        kwargs:
+        **kwargs :
             additional keyword arguments
 
         Returns
         -------
-        SingleImage: transformed Image
-        [optional] np.ndarray: transformation matrix
+        :class:`BaseSingleImage`
+            transformed Image
+        [optional] np.ndarray
+            transformation matrix
+
         """
         new_instance = deepcopy(self)
 
@@ -464,7 +944,9 @@ class BaseSingleImage(AbstractSingleImage):
 
         Returns
         -------
-        BaseSingleImage: Image with Landmarks in cartesian Coordinates
+        :class:`BaseSingleImage`
+            Image with Landmarks in cartesian Coordinates
+
         """
         raise NotImplementedError
 
@@ -475,7 +957,9 @@ class BaseSingleImage(AbstractSingleImage):
 
         Returns
         -------
-        BaseSingleImage: Image with Landmarks in Homogeneous Coordinates
+        :class:`BaseSingleImage`
+            Image with Landmarks in Homogeneous Coordinates
+
         """
         raise NotImplementedError
 
@@ -489,25 +973,30 @@ class BaseSingleImage(AbstractSingleImage):
 
         Parameters
         ----------
-        transform: AffineTransform
+        transform : :class:`AffineTransform`
             if transform is specified it overwrites all other arguments
-        rotation: float
+        rotation : float
             rotation angle in radiant
-        scale: float
+        scale : float
             scale value
-        translation:
+        translation :
             translation params
-        shear:
+        shear :
             shear params
-        trafo_matrix:
+        trafo_matrix :
             transformation matrix
-        return_matrix: bool
+        return_matrix : bool
             whether to return the transformation matrix along the transformed
             object
-        kwargs:
+        **kwargs :
             additional keyword arguments
+        
         Returns
         -------
+        :class:`BaseSingleImage`
+            transformed Image
+        [optional] np.ndarray
+            transformation matrix
 
         """
         if transform is None:
@@ -536,14 +1025,17 @@ class BaseSingleImage(AbstractSingleImage):
         resize image and scale landmarks
         Parameters
         ----------
-        target_shape: tuple or list
+        target_shape : tuple or list
             target shape for resizing
-        kwargs:
-            additional keyword arguments (passed to skimage.transform.warp)
+        **kwargs :
+            additional keyword arguments (passed to 
+            :meth:`skimage.transform.warp`)
 
         Returns
         -------
-        SingleImage: resized image
+        :class:`BaseSingleImage`
+            transformed Image
+
         """
         scale = np.asarray(target_shape) / np.asarray(self.img.shape[:-1])
 
@@ -555,14 +1047,17 @@ class BaseSingleImage(AbstractSingleImage):
 
         Parameters
         ----------
-        scale:
+        scale :
             scale parameter
-        kwargs:
-            additional keyword arguments (passed to skimage.transform.warp)
+        **kwargs :
+            additional keyword arguments (passed to 
+            :meth:`skimage.transform.warp`)
 
         Returns
         -------
-        BaseSingleImage: rescaled image
+        :class:`BaseSingleImage`
+            transformed Image
+
         """
         target_shape = np.asarray(self.img.shape[:-1]) * np.asarray(scale)
 
@@ -574,16 +1069,19 @@ class BaseSingleImage(AbstractSingleImage):
 
         Parameters
         ----------
-        angle: float or int
+        angle : float or int
             rotation angle
-        degree: bool
+        degree : bool
             whether the angle is given in degree or radiant
-        kwargs:
-            additional keyword arguments (passed to skimage.transform.warp)
+        **kwargs :
+            additional keyword arguments (passed to 
+            :meth:`skimage.transform.warp`)
 
         Returns
         -------
-        SingleImage: rotated image
+        :class:`BaseSingleImage`
+            transformed Image
+
         """
 
         if degree:
@@ -597,16 +1095,18 @@ class BaseSingleImage(AbstractSingleImage):
 
         Parameters
         ----------
-        translation:
+        translation :
             translation parameters
-        relative: bool
+        relative : bool
             whether translation parameters are relative to image size
-        kwargs:
-            additional keyword arguments (passed to skimage.transform.warp)
+       **kwargs :
+            additional keyword arguments (passed to 
+            :meth:`skimage.transform.warp`)
 
         Returns
         -------
-        SingleImage: translated image
+        :class:`BaseSingleImage`
+            transformed Image
 
         """
         if relative:
@@ -628,18 +1128,21 @@ class BaseSingleImage(AbstractSingleImage):
 
         Parameters
         ----------
-        lmks: np.ndarray
+        lmks : np.ndarray
             landmarks for rotation normalization
-        index_left: int
+        index_left : int
             index for left point
-        index_right: int
+        index_right : int
             index for right point
-        kwargs:
-            additional keyword arguments (passed to skimage.transform.warp)
+        **kwargs :
+            additional keyword arguments (passed to 
+            :meth:`skimage.transform.warp`)
 
         Returns
         -------
-        SingleImage: normalized image
+        :class:`BaseSingleImage`
+            transformed Image
+
         """
         left = lmks[index_left]
         right = lmks[index_right]
@@ -650,18 +1153,19 @@ class BaseSingleImage(AbstractSingleImage):
 
             Parameters
             ----------
-            v0: np.array
+            v0 : np.array
                 Anchor point
-            v1: np.array
+            v1 : np.array
                 First vector
-            v2: np.array
+            v2 : np.array
                 Second Vector
-            degree: bool
+            degree : bool
                 if True: returns angle in degree, else in rad
 
             Returns
             -------
             angle
+
             """
 
             a1 = v0 - v1
@@ -694,18 +1198,20 @@ class BaseSingleImage(AbstractSingleImage):
 
         Parameters
         ----------
-        min_y: int
+        min_y : int
             minimum y value
-        min_x: int
+        min_x : int
             minimum x value
-        max_y: int
+        max_y : int
             maximum y value
-        max_x: int
+        max_x : int
             maximum x value
 
         Returns
         -------
-        BaseSingleImage: cropped image
+        :class:`BaseSingleImage`
+            cropped image
+
         """
 
         # ensure cropping values are withing the image bounds
@@ -725,18 +1231,20 @@ class BaseSingleImage(AbstractSingleImage):
 
         Parameters
         ----------
-        min_y: int
+        min_y : int
             minimum y value
-        min_x: int
+        min_x : int
             minimum x value
-        max_y: int
+        max_y : int
             maximum y value
-        max_x: int
+        max_x : int
             maximum x value
 
         Raises
         -------
         NotImplementedError
+            if not overwritten by subclass
+
         """
         raise NotImplementedError
 
@@ -747,20 +1255,22 @@ class BaseSingleImage(AbstractSingleImage):
 
         Parameters
         ----------
-        lmks: np.ndarray
+        lmks : np.ndarray
             landmarks to crop
-        min_y: int
+        min_y : int
             minimum y value
-        min_x: int
+        min_x : int
             minimum x value
-        max_y: int
+        max_y : int
             maximum y value
-        max_x: int
+        max_x : int
             maximum x value
 
         Returns
         -------
-        np.ndarray: cropped landmarks
+        np.ndarray
+            cropped landmarks
+        
         """
         # lmk_mask_y = (lmks[:, 0] >= min_y) & (lmks[:, 0] <= max_y)
         # lmk_mask_x = (lmks[:, 1] >= min_x) & (lmks[:, 1] <= max_x)
@@ -773,6 +1283,19 @@ class BaseSingleImage(AbstractSingleImage):
     def crop_to_landmarks(self, proportion=0., **kwargs):
         """
         Crop image to landmarks
+
+        Parameters
+        ----------
+        proportion : float
+            image proportion to add to size of bounding box
+        **kwargs :
+            additional keyword arguments
+
+        Returns
+        -------
+        :class:`BaseSingleImage`
+            cropped image
+
         """
         return self._crop_to_landmarks(proportion, **kwargs)
 
@@ -783,14 +1306,16 @@ class BaseSingleImage(AbstractSingleImage):
 
         Parameters
         ----------
-        proportion: float
+        proportion : float
             boundary proportion of cropping
-        kwargs:
+        **kwargs :
             additional keyword arguments
 
-        Returns
-        -------
-        BaseSingleImage: cropped image
+        Raises
+        ------
+        NotImplementedError
+            if not overwritten by subclass
+
         """
         raise NotImplementedError
 
@@ -801,7 +1326,7 @@ class BaseSingleImage(AbstractSingleImage):
 
         Parameters
         ----------
-        lmks: np.ndarray
+        lmks : np.ndarray
             landmarks
 
         Returns
@@ -821,11 +1346,14 @@ class BaseSingleImage(AbstractSingleImage):
 
     def to_grayscale(self):
         """
+
         Convert Image to grayscale
 
         Returns
         -------
-        BaseSingleImage: Grayscale Image
+        :class:`BaseSingleImage`
+            Grayscale Image
+
         """
 
         new_instance = deepcopy(self)
