@@ -5,7 +5,7 @@
 This repository contains image classes to perform transformations on images with landmarks (similar to [menpo](https://github.com/menpo/menpo) but with much less dependencies). It also provides some basic Datasets for [delira](https://github.com/justusschock/delira)
 
 ## Installation
-This package can be installed via `pip install shapedata.git`
+This package can be installed via `pip install shapedata`
 
 ## Basic Usage
 To load a single image with landmarks you can simply do
