@@ -739,7 +739,7 @@ class BaseSingleImage(AbstractSingleImage):
 
         Parameters
         ----------
-        transformation : :class:`AffineTransform`
+        transformation : :class:`skimage.transform.AffineTransform`
             transformation to apply
         **kwargs :
             additional keyword arguments
@@ -767,7 +767,7 @@ class BaseSingleImage(AbstractSingleImage):
 
         Parameters
         ----------
-        transformation : :class:`AffineTransform`
+        transformation : :class:`skimage.transform.AffineTransform`
             transformation to apply
         **kwargs :
             additional keyword arguments
@@ -791,7 +791,7 @@ class BaseSingleImage(AbstractSingleImage):
 
         Parameters
         ----------
-        transformation : :class:`AffineTransform`
+        transformation : :class:`skimage.transform.AffineTransform`
             transformation to apply
 
         Returns
@@ -895,7 +895,7 @@ class BaseSingleImage(AbstractSingleImage):
 
         Parameters
         ----------
-        transform : :class:`AffineTransform`
+        transform : :class:`skimage.transform.AffineTransform`
             if transform is specified it overwrites all other arguments
         rotation : float or None
             rotation angle in radiant
@@ -973,7 +973,7 @@ class BaseSingleImage(AbstractSingleImage):
 
         Parameters
         ----------
-        transform : :class:`AffineTransform`
+        transform : :class:`skimage.transform.AffineTransform`
             if transform is specified it overwrites all other arguments
         rotation : float
             rotation angle in radiant

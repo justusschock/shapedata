@@ -1,17 +1,15 @@
 .. role:: hidden
     :class: hidden-section
 
-.. currentmodule:: shapedata.single_shape
+.. currentmodule:: shapedata.single_shape.dataset
 
-:hidden:`SingleShapeDataset`
+:hidden:`ShapeDataset`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. autoclass:: SingleShapeDataset
+.. autoclass:: ShapeDataset
     :members:
     :undoc-members:
     :show-inheritance:
-
-.. currentmodule:: shapedata.single_shape.dataset
 
 :hidden:`default_loader`
 ~~~~~~~~~~~~~~~~~~~~~~~~

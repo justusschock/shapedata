@@ -192,7 +192,7 @@ class SingleImage2D(BaseSingleImage):
 
         Parameters
         ----------
-        transformation : :class:`AffineTransform`
+        transformation : :class:`skimage.transform.AffineTransform`
             transformation to apply
 
         Returns
