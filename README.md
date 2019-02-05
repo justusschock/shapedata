@@ -1,6 +1,6 @@
 # ShapeData
 
-[![Build Status](https://travis-ci.com/justusschock/shapedata.svg?token=GsT2RFaJJMxpqLAN3xuh&branch=master)](https://travis-ci.com/justusschock/shapedata) [![codecov](https://codecov.io/gh/justusschock/shapedata/branch/master/graph/badge.svg?token=PeQndVRdEQ)](https://codecov.io/gh/justusschock/shapedata) ![LICENSE](https://img.shields.io/github/license/justusschock/shapedata.svg)
+[![Build Status](https://travis-ci.com/justusschock/shapedata.svg?token=GsT2RFaJJMxpqLAN3xuh&branch=master)](https://travis-ci.com/justusschock/shapedata) [![Documentation Status](https://readthedocs.org/projects/shapedata/badge/?version=master)](https://shapedata.readthedocs.io/en/master/?badge=master) [![codecov](https://codecov.io/gh/justusschock/shapedata/branch/master/graph/badge.svg?token=PeQndVRdEQ)](https://codecov.io/gh/justusschock/shapedata) ![LICENSE](https://img.shields.io/github/license/justusschock/shapedata.svg)
 
 This repository contains image classes to perform transformations on images with landmarks (similar to [menpo](https://github.com/menpo/menpo) but with much less dependencies). It also provides some basic Datasets for [delira](https://github.com/justusschock/delira)
 
