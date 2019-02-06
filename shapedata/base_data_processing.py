@@ -464,7 +464,7 @@ class AbstractSingleImage(object):
     def _normalize_rotation(self, *args, **kwargs):
         """
         Internal implementation of 
-        :method:`AbstractSingleImage.normalize_rotation`
+        :meth:`AbstractSingleImage.normalize_rotation`
 
         Parameters
         ----------
@@ -506,7 +506,7 @@ class AbstractSingleImage(object):
     def _crop(self, *args, **kwargs):
         """
         Internal implementation of 
-        :method:`AbstractSingleImage.crop`
+        :meth:`AbstractSingleImage.crop`
 
         Parameters
         ----------
@@ -567,7 +567,7 @@ class AbstractSingleImage(object):
     def _crop_to_landmarks(self, *args, **kwargs):
         """
         Internal implementation of 
-        :method:`AbstractSingleImage.crop_to_landmarks`
+        :meth:`AbstractSingleImage.crop_to_landmarks`
 
         Parameters
         ----------
