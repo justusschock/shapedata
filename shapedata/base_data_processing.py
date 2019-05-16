@@ -1038,6 +1038,7 @@ class BaseSingleImage(AbstractSingleImage):
 
         """
         scale = np.asarray(target_shape) / np.asarray(self.img.shape[:-1])
+        scale = np.array([scale[1], scale[0]])
 
         return self.transform(scale=scale, output_shape=target_shape, **kwargs)
 
