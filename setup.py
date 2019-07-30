@@ -1,5 +1,4 @@
 from setuptools import setup, find_packages
-curr_version = '0.1.0'
 
 import os
 import re
