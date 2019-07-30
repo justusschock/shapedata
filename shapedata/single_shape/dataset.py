@@ -135,7 +135,7 @@ def preprocessing(img: SingleImage, img_size: tuple, crop=None, rotate=None,
                         for _bound in _data_bounds]
 
         range_y, range_x = _data_bounds[2] - _data_bounds[0], \
-                            _data_bounds[3] - _data_bounds[1]
+                           _data_bounds[3] - _data_bounds[1]
 
         total_range = max(range_x, range_y) * (1 + crop)
 
@@ -144,7 +144,7 @@ def preprocessing(img: SingleImage, img_size: tuple, crop=None, rotate=None,
             _data_bounds[1] + range_x / 2 - total_range / 2,
             _data_bounds[0] + range_y / 2 + total_range / 2,
             _data_bounds[1] + range_x / 2 + total_range / 2,
-        ]
+            ]
 
         _data = _data.crop(*_data_bounds)
 
@@ -197,8 +197,7 @@ class ShapeDataset(AbstractDataset):
 
         """
 
-        super().__init__(data_path, default_loader, IMG_EXTENSIONS_2D,
-                         LMK_EXTENSIONS)
+        super().__init__(data_path, default_loader)
 
         self.data_path = data_path
         self.img_size = (img_size, img_size) if isinstance(img_size, int) \
@@ -228,6 +227,18 @@ class ShapeDataset(AbstractDataset):
 
         self.data = data
 
+    def _make_dataset(self, path):
+        return tuple([os.path.join(path, x) for x in os.listdir(path)
+                      # check if file exists
+                      if (os.path.isfile(os.path.join(path, x)) and
+                          # check if landmark file exists
+                          any([os.path.isfile(os.path.join(
+                              path, os.path.splitext(x) + ext))
+                              for ext in LMK_EXTENSIONS])
+                          # check if file is image file
+                          and any([x.endswith(ext)
+                                   for ext in IMG_EXTENSIONS_2D]))])
+
     def __getitem__(self, index):
         """
         Returns a dict containing a single sample
@@ -245,18 +256,17 @@ class ShapeDataset(AbstractDataset):
             
         """
 
-        
         if self.rotate:
             rot_angle = random.randint(-self.rotate, self.rotate)
         else:
             rot_angle = None
         # _img, _label = default_loader(self.img_files[index], self.img_size)
-        _img, _label = default_loader(self.data[index], self.img_size,
-                                      self.crop, self.extension, rot_angle,
-                                      self.cached,
-                                      self.random_offset,
-                                      self.random_scale,
-                                      self.point_indices)
+        _img, _label = self._load_fn(self.data[index], self.img_size,
+                                     self.crop, self.extension, rot_angle,
+                                     self.cached,
+                                     self.random_offset,
+                                     self.random_scale,
+                                     self.point_indices)
 
         return {"data": _img, "label": _label}
 
