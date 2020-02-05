@@ -28,3 +28,12 @@ Transformations as `img.translate()`, `img.rotate()`, `img.rescale()` or `img.re
 To access the image itself you can do `img.img` and accessing the landmarks works with `img.lmk` for instances of `SingleShapeSingleImage`
 For further usage have a look at the datasets and docstrings.
 
+## Licensing
+Copyright (C) 2020 by RWTH Aachen University                      
+ http://www.rwth-aachen.de                                             
+
+  License:                                                                                                                                             
+ This software is dual-licensed under:                                 
+ • Commercial license (please contact: lfb@lfb.rwth-aachen.de)         
+ • AGPL (GNU Affero General Public License) open source license        
+
